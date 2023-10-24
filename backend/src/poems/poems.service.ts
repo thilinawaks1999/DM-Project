@@ -423,7 +423,11 @@ export class PoemsService {
           //add match for fields poem_name, poet, year and line
           multi_match: {
             query: inputText,
+            type: "best_fields",
+            operator: "and",
             fields: ["poem_name", "poet", "year", "line"],
+            //add fuzziness to match words that are similar to the input text
+            fuzziness: "AUTO",
           },
         },
         aggs: {
