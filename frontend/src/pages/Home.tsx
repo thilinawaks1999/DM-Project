@@ -7,6 +7,8 @@ import FilterPanel from "../components/FilterPanel";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { poemsActions } from "../redux/slice";
 import SearchPanel from "../components/SearchPanel";
+import LightbulbRoundedIcon from "@mui/icons-material/LightbulbRounded";
+import TipsAndUpdatesRoundedIcon from "@mui/icons-material/TipsAndUpdatesRounded";
 
 function Home() {
   const [value, setValue] = React.useState(0);
@@ -125,6 +127,16 @@ function Home() {
               variant="outlined"
               color="success"
               onClick={handleShowMetaphors}
+              sx={{
+                minWidth: 200,
+              }}
+              endIcon={
+                showMetaphors ? (
+                  <TipsAndUpdatesRoundedIcon />
+                ) : (
+                  <LightbulbRoundedIcon />
+                )
+              }
             >
               {showMetaphors ? "Hide Metaphors" : "Show Metaphors"}
             </Button>
