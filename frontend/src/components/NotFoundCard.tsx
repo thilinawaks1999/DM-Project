@@ -15,6 +15,7 @@ function NotFoundCard() {
           justifyContent: "center",
           alignItems: "center",
           height: "60vh",
+          bgcolor: "lightgrey",
         }}
       >
         <CardHeader

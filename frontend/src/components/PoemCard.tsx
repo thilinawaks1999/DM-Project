@@ -43,7 +43,11 @@ function PoemCard(props: PoemCardProps) {
         minWidth: 275,
       }}
     >
-      <Card>
+      <Card
+        sx={{
+          bgcolor: "#FFF2D8",
+        }}
+      >
         <CardHeader
           title={props.poems[0].poem_name}
           subheader={`${props.poems[0].poet} - ${props.poems[0].year}`}

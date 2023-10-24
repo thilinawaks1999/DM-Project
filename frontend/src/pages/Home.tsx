@@ -92,8 +92,18 @@ function Home() {
 
   return (
     <Box>
-      <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
-        <Tabs value={value} onChange={handleChange} centered>
+      <Box sx={{ width: "100%" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          centered
+          sx={{
+            bgcolor: "#BCA37F",
+            mx: 1,
+            mt: 2,
+            borderRadius: 1,
+          }}
+        >
           <Tab label="All Poems" />
           <Tab label="Filter By Poet" />
           <Tab label="Filter By Poem Name" />
