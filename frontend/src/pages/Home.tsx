@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Stack, Tab, Tabs } from "@mui/material";
+import { Box, Button, Grid, Skeleton, Stack, Tab, Tabs } from "@mui/material";
 import React, { useEffect } from "react";
 import PoemCard from "../components/PoemCard";
 import { Poem } from "../types/poems.type";
@@ -15,7 +15,7 @@ function Home() {
   const [showMetaphors, setShowMetaphors] = React.useState(false);
   const dispatch = useAppDispatch();
   const poemsReducer = useAppSelector((state) => state.poemsReducer);
-  const { poems, poets, poemNames, years } = poemsReducer;
+  const { poems, poets, poemNames, years, fetching } = poemsReducer;
 
   useEffect(() => {
     dispatch(poemsActions.fetchAllPoems());
@@ -96,7 +96,20 @@ function Home() {
   function handleShowMetaphors() {
     setShowMetaphors(!showMetaphors);
   }
-
+  // if (true) {
+  //   return (
+  //     <Box
+  //       sx={{
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //         height: "100vh",
+  //       }}
+  //     >
+  //       <Skeleton variant="rectangular" width={210} height={118} />
+  //     </Box>
+  //   );
+  // }
   return (
     <Box>
       <Box sx={{ width: "100%" }}>
@@ -193,14 +206,20 @@ function Home() {
         }}
       >
         <Grid container spacing={1}>
-          {poems.length > 0 &&
-            poems.map((poem: Poem[], index: number) => {
-              return (
-                <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                  <PoemCard poems={poem} showMetaphors={showMetaphors} />
+          {fetching
+            ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item) => (
+                <Grid item xs={12} sm={6} md={4} lg={3} key={item}>
+                  <Skeleton key={item} variant="rectangular" height={230} />
                 </Grid>
-              );
-            })}
+              ))
+            : poems.length > 0 &&
+              poems.map((poem: Poem[], index: number) => {
+                return (
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                    <PoemCard poems={poem} showMetaphors={showMetaphors} />
+                  </Grid>
+                );
+              })}
         </Grid>
       </Box>
       {poems.length === 0 && <NotFoundCard />}
