@@ -1,4 +1,4 @@
-import { Box, Grid, Stack, Tab, Tabs } from "@mui/material";
+import { Box, Button, Grid, Stack, Tab, Tabs } from "@mui/material";
 import React, { useEffect } from "react";
 import PoemCard from "../components/PoemCard";
 import { Poem } from "../types/poems.type";
@@ -10,6 +10,7 @@ import SearchPanel from "../components/SearchPanel";
 
 function Home() {
   const [value, setValue] = React.useState(0);
+  const [showMetaphors, setShowMetaphors] = React.useState(false);
   const dispatch = useAppDispatch();
   const poemsReducer = useAppSelector((state) => state.poemsReducer);
   const { poems, poets, poemNames, years } = poemsReducer;
@@ -90,6 +91,10 @@ function Home() {
     }
   }
 
+  function handleShowMetaphors() {
+    setShowMetaphors(!showMetaphors);
+  }
+
   return (
     <Box>
       <Box sx={{ width: "100%" }}>
@@ -109,6 +114,21 @@ function Home() {
           <Tab label="Filter By Poem Name" />
           <Tab label="Filter By Year" />
           <Tab label="Search Text" />
+          <Box
+            sx={{
+              ml: 2,
+              mt: 1,
+              mb: 1,
+            }}
+          >
+            <Button
+              variant="outlined"
+              color="success"
+              onClick={handleShowMetaphors}
+            >
+              {showMetaphors ? "Hide Metaphors" : "Show Metaphors"}
+            </Button>
+          </Box>
         </Tabs>
       </Box>
       {value === 1 && (
@@ -165,7 +185,7 @@ function Home() {
             poems.map((poem: Poem[], index: number) => {
               return (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                  <PoemCard poems={poem} />
+                  <PoemCard poems={poem} showMetaphors={showMetaphors} />
                 </Grid>
               );
             })}

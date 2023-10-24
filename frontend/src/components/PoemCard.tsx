@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 export interface PoemCardProps {
   poems: Poem[];
+  showMetaphors: boolean;
 }
 
 function PoemCard(props: PoemCardProps) {
@@ -56,9 +57,21 @@ function PoemCard(props: PoemCardProps) {
           {poem &&
             poem.map((line: Poem) => {
               const textColor =
-                line.metaphor_present_or_not === "yes" ? "red" : "black";
+                line.metaphor_present_or_not === "yes" && props.showMetaphors
+                  ? "red"
+                  : "black";
               return (
-                <Typography key={line.line} color={textColor}>
+                <Typography
+                  key={line.line}
+                  color={textColor}
+                  sx={{
+                    textDecoration:
+                      line.metaphor_present_or_not === "yes" &&
+                      props.showMetaphors
+                        ? "underline"
+                        : "none",
+                  }}
+                >
                   {line.line}
                 </Typography>
               );
