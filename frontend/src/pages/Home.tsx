@@ -49,18 +49,21 @@ function Home() {
   };
 
   async function handleTabOne() {
-    await dispatch(poemsActions.fetchAllPoems());
+    dispatch(poemsActions.fetchAllPoems());
   }
 
   async function handleTabTwo() {
-    await dispatch(poemsActions.fetchAllPoets());
+    dispatch(poemsActions.fetchAllPoems());
+    dispatch(poemsActions.fetchAllPoets());
   }
 
   async function handleTabThree() {
-    await dispatch(poemsActions.fetchPoemsNames());
+    dispatch(poemsActions.fetchAllPoems());
+    dispatch(poemsActions.fetchPoemsNames());
   }
 
   function handleTabFour() {
+    dispatch(poemsActions.fetchAllPoems());
     dispatch(poemsActions.fetchYears());
   }
 
