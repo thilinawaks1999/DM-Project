@@ -129,7 +129,7 @@ function Home() {
             <FilterPanel
               data={years}
               onChange={handleFilterChange}
-              value="Select a Poem Name"
+              value="Select a Year"
             />
           </Stack>
         </Box>

@@ -1,4 +1,5 @@
 import { Box, FormControl, Stack, TextField } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 
 interface FilterPanelProps {
   value: string;
@@ -20,6 +21,9 @@ function SearchPanel(props: FilterPanelProps) {
             label={props.value}
             variant="outlined"
             onChange={(e) => props.onChange(e.target.value)}
+            InputProps={{
+              endAdornment: <SearchIcon />,
+            }}
           />
         </FormControl>
       </Stack>
