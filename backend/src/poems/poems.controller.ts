@@ -1,12 +1,12 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { PoemsService } from './poems.service';
-import { SearchBody } from 'src/types/search-body.type';
+import { Body, Controller, Get, Post } from "@nestjs/common";
+import { PoemsService } from "./poems.service";
+import { SearchBody } from "src/types/search-body.type";
 
-@Controller('poems')
+@Controller("poems")
 export class PoemsController {
   constructor(private readonly poemsService: PoemsService) {}
 
-  @Post('search')
+  @Post("search")
   async search(@Body() body: SearchBody): Promise<{
     hits: Record<string, any>[];
     aggs: Record<string, any>;
@@ -14,103 +14,110 @@ export class PoemsController {
     return await this.poemsService.search(body);
   }
 
-  @Get('all-poems')
+  @Get("all-poems")
   async getAllPoems(): Promise<Record<string, any>[][]> {
     return await this.poemsService.getAllPoems();
   }
 
-  @Get('all-poems-names')
+  @Get("all-poems-names")
   async getAllPoemNames(): Promise<Record<string, any>[]> {
     return await this.poemsService.getAllPoemsNames();
   }
 
-  @Post('poem-by-name')
+  @Post("poem-by-name")
   async getPoemByName(
-    @Body('poemName') poemName: string,
-  ): Promise<Record<string, any>[]> {
+    @Body("poemName") poemName: string
+  ): Promise<Record<string, any>[][]> {
     return await this.poemsService.getPoemByName(poemName);
   }
 
-  @Get('poems-with-metaphors')
+  @Get("poems-with-metaphors")
   async getPoemsWithMetaphors(): Promise<Record<string, any>[][]> {
     return await this.poemsService.getPoemsWithMetaphors();
   }
 
-  @Get('all-poets-names')
+  @Get("all-poets-names")
   async getAllPoetsNames(): Promise<Record<string, any>[]> {
     return await this.poemsService.getPoetNames();
   }
 
-  @Post('poems-by-poet')
+  @Post("poems-by-poet")
   async getPoemsByPoet(
-    @Body('poetName') poetName: string,
-  ): Promise<Record<string, any>[]> {
+    @Body("poetName") poetName: string
+  ): Promise<Record<string, any>[][]> {
     return await this.poemsService.getPoemsByPoet(poetName);
   }
 
-  @Get('years')
+  @Get("years")
   async getYears(): Promise<Record<string, any>[]> {
     return await this.poemsService.getYears();
   }
 
-  @Post('poems-by-year')
+  @Post("poems-by-year")
   async getPoemsByYear(
-    @Body('year') year: string,
-  ): Promise<Record<string, any>[]> {
+    @Body("year") year: string
+  ): Promise<Record<string, any>[][]> {
     return await this.poemsService.getPoemsByYear(year);
   }
 
-  @Post('poems-by-poet-and-year')
+  @Post("poems-by-poet-and-year")
   async getPoemsByPoetAndYear(
-    @Body('poetName') poetName: string,
-    @Body('year') year: string,
+    @Body("poetName") poetName: string,
+    @Body("year") year: string
   ): Promise<Record<string, any>[]> {
     return await this.poemsService.getPoemsByPoetAndYear(poetName, year);
   }
 
-  @Post('poems-by-poet-and-name')
+  @Post("poems-by-poet-and-name")
   async getPoemsByPoetAndName(
-    @Body('poetName') poetName: string,
-    @Body('poemName') poemName: string,
+    @Body("poetName") poetName: string,
+    @Body("poemName") poemName: string
   ): Promise<Record<string, any>[]> {
     return await this.poemsService.getPoemsByPoetAndPoemName(
       poetName,
-      poemName,
+      poemName
     );
   }
 
-  @Post('poems-by-year-and-name')
+  @Post("poems-by-year-and-name")
   async getPoemsByYearAndName(
-    @Body('year') year: string,
-    @Body('poemName') poemName: string,
+    @Body("year") year: string,
+    @Body("poemName") poemName: string
   ): Promise<Record<string, any>[]> {
     return await this.poemsService.getPoemsByYearAndPoemName(year, poemName);
   }
 
-  @Post('poems-by-poet-and-year-and-name')
+  @Post("poems-by-poet-and-year-and-name")
   async getPoemsByPoetAndYearAndName(
-    @Body('poetName') poetName: string,
-    @Body('year') year: string,
-    @Body('poemName') poemName: string,
+    @Body("poetName") poetName: string,
+    @Body("year") year: string,
+    @Body("poemName") poemName: string
   ): Promise<Record<string, any>[]> {
     return await this.poemsService.getPoemsByPoetAndYearAndPoemName(
       poetName,
       year,
-      poemName,
+      poemName
     );
   }
 
-  @Post('years-by-poet')
+  @Post("years-by-poet")
   async getYearsByPoet(
-    @Body('poetName') poetName: string,
+    @Body("poetName") poetName: string
   ): Promise<Record<string, any>[]> {
     return await this.poemsService.getYearsByPoet(poetName);
   }
 
-  @Post('poems-by-poet')
+  @Post("poems-by-poet")
   async getYearsByPoemName(
-    @Body('poetName') poetName: string,
+    @Body("poetName") poetName: string
   ): Promise<Record<string, any>[]> {
     return await this.poemsService.getPoemNamesByPoet(poetName);
+  }
+
+  @Post("poems-by-text")
+  async getPoemsByText(
+    @Body("text") text: string
+  ): Promise<Record<string, any>[][]> {
+    return await this.poemsService.getPoemsByInputText(text);
   }
 }

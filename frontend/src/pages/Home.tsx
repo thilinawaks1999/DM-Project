@@ -1,558 +1,34 @@
 import { Box, Grid, Stack, Tab, Tabs } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import PoemCard from "../components/PoemCard";
 import { Poem } from "../types/poems.type";
 import NotFoundCard from "../components/NotFoundCard";
 import FilterPanel from "../components/FilterPanel";
-
-const poems: Poem[][] = [
-  [
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-  ],
-  [
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "yes",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-  ],
-  [
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-  ],
-  [
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-  ],
-  [
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-  ],
-  [
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-  ],
-  [
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-  ],
-  [
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-  ],
-  [
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-  ],
-  [
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-  ],
-  [
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-  ],
-  [
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-  ],
-  [
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-    {
-      _source: {
-        poem_id: 0,
-        poem_name: "අතුරුදහන් කළ මිනිසෙක්",
-        poet: "සෝමවීර",
-        line: "සියවසෙන් සියවස",
-        metaphor_present_or_not: "no",
-        count_of_the_metaphor: 0,
-        metaphorical_terms: "unknown",
-        year: 1974,
-      },
-    },
-  ],
-];
-
-const items = [
-  {
-    key: "ගුණදාස අමරසේකර",
-    doc_count: 48,
-  },
-  {
-    key: "සිරි ගුනසිංහ",
-    doc_count: 48,
-  },
-  {
-    key: "මහගම සේකර",
-    doc_count: 46,
-  },
-  {
-    key: "සාගර පලන්සූරිය ",
-    doc_count: 32,
-  },
-  {
-    key: "දයාසේන ගුණසිංහ",
-    doc_count: 31,
-  },
-  {
-    key: "රුවන් බන්දුජීව",
-    doc_count: 26,
-  },
-  {
-    key: "එස්. මහින්ද හිමි",
-    doc_count: 20,
-  },
-  {
-    key: "වෑත්තෑවේ හිමි",
-    doc_count: 19,
-  },
-  {
-    key: "සෝමවීර",
-    doc_count: 16,
-  },
-  {
-    key: "කුමාරතුංග මුනිදාස",
-    doc_count: 10,
-  },
-];
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { poemsActions } from "../redux/slice";
+import SearchPanel from "../components/SearchPanel";
 
 function Home() {
   const [value, setValue] = React.useState(0);
+  const dispatch = useAppDispatch();
+  const poemsReducer = useAppSelector((state) => state.poemsReducer);
+  const { poems, poets, poemNames, years } = poemsReducer;
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  useEffect(() => {
+    dispatch(poemsActions.fetchAllPoems());
+    dispatch(poemsActions.fetchAllPoets());
+    dispatch(poemsActions.fetchPoemsNames());
+    dispatch(poemsActions.fetchYears());
+  }, [dispatch]);
+
+  const handleChange = async (
+    event: React.SyntheticEvent,
+    newValue: number
+  ) => {
     setValue(newValue);
     switch (newValue) {
       case 0:
-        handleTabOne();
+        await handleTabOne();
         break;
       case 1:
         handleTabTwo();
@@ -572,18 +48,43 @@ function Home() {
     }
   };
 
-  function handleTabOne() {}
+  async function handleTabOne() {
+    await dispatch(poemsActions.fetchAllPoems());
+  }
 
-  function handleTabTwo() {}
+  async function handleTabTwo() {
+    await dispatch(poemsActions.fetchAllPoets());
+  }
 
-  function handleTabThree() {}
+  async function handleTabThree() {
+    await dispatch(poemsActions.fetchPoemsNames());
+  }
 
-  function handleTabFour() {}
+  function handleTabFour() {
+    dispatch(poemsActions.fetchYears());
+  }
 
-  function handleTabFive() {}
+  function handleTabFive() {
+    dispatch(poemsActions.fetchAllPoems());
+  }
 
-  function handleFilterChange(value: string) {
-    console.log(value);
+  function handleFilterChange(valueIn: string) {
+    if (value === 0) {
+      dispatch(poemsActions.fetchAllPoems());
+    }
+    if (value === 1) {
+      dispatch(poemsActions.fetchPoemsByPoet(valueIn));
+    }
+    if (value === 2) {
+      dispatch(poemsActions.fetchPoemsByPoemName(valueIn));
+    }
+    if (value === 3) {
+      dispatch(poemsActions.fetchPoemsByYear(valueIn));
+    }
+    if (value === 4) {
+      if (valueIn === "") return dispatch(poemsActions.fetchAllPoems());
+      dispatch(poemsActions.fetchPoemsByText(valueIn));
+    }
   }
 
   return (
@@ -598,41 +99,62 @@ function Home() {
           <Tab label="Filter By Poet" />
           <Tab label="Filter By Poem Name" />
           <Tab label="Filter By Year" />
-          <Tab label="Other" />
+          <Tab label="Search Text" />
         </Tabs>
       </Box>
-      {value !== 0 && (
+      {value === 1 && (
         <Box>
           <Stack direction="row" spacing={2}>
             <FilterPanel
-              data={items}
+              data={poets}
               onChange={handleFilterChange}
-              value="Select a Value"
+              value="Select a Poet"
             />
+          </Stack>
+        </Box>
+      )}
+      {value === 2 && (
+        <Box>
+          <Stack direction="row" spacing={2}>
             <FilterPanel
-              data={items}
+              data={poemNames}
               onChange={handleFilterChange}
-              value="Select a Value"
+              value="Select a Poem Name"
+            />
+          </Stack>
+        </Box>
+      )}
+      {value === 3 && (
+        <Box>
+          <Stack direction="row" spacing={2}>
+            <FilterPanel
+              data={years}
+              onChange={handleFilterChange}
+              value="Select a Poem Name"
+            />
+          </Stack>
+        </Box>
+      )}
+      {value === 4 && (
+        <Box>
+          <Stack direction="row" spacing={2}>
+            <SearchPanel
+              onChange={handleFilterChange}
+              value="Search by Poet, Poem Name, or Content"
             />
           </Stack>
         </Box>
       )}
       <Box>
         <Grid container spacing={1}>
-          {poems.map((poem: Poem[]) => {
-            return (
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                lg={3}
-                key={poem[0]._source.poem_id}
-              >
-                <PoemCard poems={poem} />
-              </Grid>
-            );
-          })}
+          {poems.length > 0 &&
+            poems.map((poem: Poem[], index: number) => {
+              return (
+                <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                  <PoemCard poems={poem} />
+                </Grid>
+              );
+            })}
         </Grid>
       </Box>
       {poems.length === 0 && <NotFoundCard />}

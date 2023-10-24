@@ -17,16 +17,16 @@ function PoemCard(props: PoemCardProps) {
     >
       <Card>
         <CardHeader
-          title={props.poems[0]._source.poem_name}
-          subheader={props.poems[0]._source.poet}
+          title={props.poems[0].poem_name}
+          subheader={`${props.poems[0].poet} - ${props.poems[0].year}`}
         />
         <CardContent>
           {props.poems.map((line: Poem) => {
             const textColor =
-              line._source.metaphor_present_or_not === "yes" ? "red" : "black";
+              line.metaphor_present_or_not === "yes" ? "red" : "black";
             return (
-              <Typography key={line._source.line} color={textColor}>
-                {line._source.line}
+              <Typography key={line.line} color={textColor}>
+                {line.line}
               </Typography>
             );
           })}

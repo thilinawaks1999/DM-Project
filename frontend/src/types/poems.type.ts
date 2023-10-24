@@ -1,8 +1,8 @@
-export interface Poem {
-  _source: PoemSource;
-}
+// export interface Poem {
+//   _source: PoemSource;
+// }
 
-interface PoemSource {
+export interface Poem {
   poem_id: number;
   poem_name: string;
   poet: string;
