@@ -144,7 +144,12 @@ function Home() {
           </Stack>
         </Box>
       )}
-      <Box>
+      <Box
+        sx={{
+          p: 1,
+          pt: 2,
+        }}
+      >
         <Grid container spacing={1}>
           {poems.length > 0 &&
             poems.map((poem: Poem[], index: number) => {

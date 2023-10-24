@@ -9,7 +9,6 @@ import {
   CardActions,
   Button,
 } from "@mui/material";
-
 export interface PoemCardProps {
   poems: Poem[];
 }
@@ -41,8 +40,6 @@ function PoemCard(props: PoemCardProps) {
   return (
     <Box
       sx={{
-        p: 1,
-        m: 1,
         minWidth: 275,
       }}
     >
