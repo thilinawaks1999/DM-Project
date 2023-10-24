@@ -88,11 +88,7 @@ function Home() {
   }
 
   return (
-    <Box
-      sx={{
-        backgroundColor: "#f5f5f5",
-      }}
-    >
+    <Box>
       <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
         <Tabs value={value} onChange={handleChange} centered>
           <Tab label="All Poems" />
