@@ -1,25 +1,38 @@
 import { Injectable } from "@nestjs/common";
-import { SearchService } from "src/search/search.service";
+import { ConfigService } from "@nestjs/config";
+import { ElasticsearchService } from "@nestjs/elasticsearch";
 import { SearchBody } from "src/types/search-body.type";
 
 @Injectable()
 export class PoemsService {
-  constructor(private readonly searchService: SearchService) {}
+  constructor(
+    private readonly esService: ElasticsearchService,
+    private readonly configService: ConfigService
+  ) {}
 
   async search(inputBody: SearchBody): Promise<{
     hits: Record<string, any>[];
     aggs: Record<string, any>;
   }> {
-    const res = await this.searchService.search(inputBody);
+    const body = {
+      size: 1000,
+      from: 0,
+      query: inputBody.query,
+      aggs: inputBody.aggs,
+    };
+    const result = await this.esService.search({
+      index: this.configService.get("ELASTICSEARCH_INDEX"),
+      body,
+    });
     return {
-      hits: res.hits,
-      aggs: res.aggs,
+      hits: result.hits.hits,
+      aggs: result.aggregations,
     };
   }
 
   async getAllPoems(): Promise<Record<string, any>[][]> {
     try {
-      const metaphors = await this.searchService.search({
+      const metaphors = await this.search({
         query: {
           match_all: {},
         },
@@ -34,7 +47,7 @@ export class PoemsService {
       });
       const poems = [];
       for (const key of metaphors.aggs.distinct_poem_names.buckets) {
-        const poem = await this.searchService.search({
+        const poem = await this.search({
           query: {
             match: {
               poem_name: key.key,
@@ -57,7 +70,7 @@ export class PoemsService {
     // Implement logic to retrieve all poems from your database.
     try {
       // Use an aggregation to get distinct poem names
-      const PoemNames = await this.searchService.search({
+      const PoemNames = await this.search({
         aggs: {
           distinct_poem_names: {
             terms: {
@@ -75,7 +88,7 @@ export class PoemsService {
 
   async getPoemByName(poemName: string): Promise<Record<string, any>[][]> {
     try {
-      const poem = await this.searchService.search({
+      const poem = await this.search({
         query: {
           match: {
             poem_name: poemName,
@@ -91,7 +104,7 @@ export class PoemsService {
       });
       const poems = [];
       for (const key of poem.aggs.distinct_poem_names.buckets) {
-        const poem = await this.searchService.search({
+        const poem = await this.search({
           query: {
             match: {
               poem_name: key.key,
@@ -112,7 +125,7 @@ export class PoemsService {
 
   async getPoemsWithMetaphors(): Promise<Record<string, any>[][]> {
     try {
-      const metaphors = await this.searchService.search({
+      const metaphors = await this.search({
         query: {
           match: {
             metaphor_present_or_not: "yes",
@@ -121,7 +134,7 @@ export class PoemsService {
       });
       const poems = [];
       for (const metaphor of metaphors.hits) {
-        const poem = await this.searchService.search({
+        const poem = await this.search({
           query: {
             match: {
               poem_name: (metaphor._source as any).poem_name,
@@ -142,7 +155,7 @@ export class PoemsService {
 
   async getPoetNames(): Promise<any> {
     try {
-      const poetNames = await this.searchService.search({
+      const poetNames = await this.search({
         aggs: {
           distinct_poet_names: {
             terms: {
@@ -159,7 +172,7 @@ export class PoemsService {
 
   async getPoemsByPoet(poetName: string): Promise<Record<string, any>[][]> {
     try {
-      const poems = await this.searchService.search({
+      const poems = await this.search({
         query: {
           match: {
             poet: poetName,
@@ -175,7 +188,7 @@ export class PoemsService {
       });
       const poemsByPoet = [];
       for (const key of poems.aggs.distinct_poem_names.buckets) {
-        const poem = await this.searchService.search({
+        const poem = await this.search({
           query: {
             match: {
               poem_name: key.key,
@@ -196,7 +209,7 @@ export class PoemsService {
 
   async getYears(): Promise<any> {
     try {
-      const years = await this.searchService.search({
+      const years = await this.search({
         aggs: {
           distinct_years: {
             terms: {
@@ -213,7 +226,7 @@ export class PoemsService {
 
   async getPoemsByYear(year: string): Promise<Record<string, any>[][]> {
     try {
-      const poems = await this.searchService.search({
+      const poems = await this.search({
         query: {
           match: {
             year,
@@ -229,7 +242,7 @@ export class PoemsService {
       });
       const poemsByYear = [];
       for (const key of poems.aggs.distinct_poem_names.buckets) {
-        const poem = await this.searchService.search({
+        const poem = await this.search({
           query: {
             match: {
               poem_name: key.key,
@@ -253,7 +266,7 @@ export class PoemsService {
     year: string
   ): Promise<Record<string, any>[]> {
     try {
-      const poems = await this.searchService.search({
+      const poems = await this.search({
         query: {
           bool: {
             must: [
@@ -282,7 +295,7 @@ export class PoemsService {
     poemName: string
   ): Promise<Record<string, any>[]> {
     try {
-      const poems = await this.searchService.search({
+      const poems = await this.search({
         query: {
           bool: {
             must: [
@@ -311,7 +324,7 @@ export class PoemsService {
     poemName: string
   ): Promise<Record<string, any>[]> {
     try {
-      const poems = await this.searchService.search({
+      const poems = await this.search({
         query: {
           bool: {
             must: [
@@ -341,7 +354,7 @@ export class PoemsService {
     poemName: string
   ): Promise<Record<string, any>[]> {
     try {
-      const poems = await this.searchService.search({
+      const poems = await this.search({
         query: {
           bool: {
             must: [
@@ -372,7 +385,7 @@ export class PoemsService {
 
   async getYearsByPoet(poetName: string): Promise<any> {
     try {
-      const years = await this.searchService.search({
+      const years = await this.search({
         aggs: {
           distinct_years: {
             terms: {
@@ -394,7 +407,7 @@ export class PoemsService {
 
   async getPoemNamesByPoet(poetName: string): Promise<Record<string, any>[]> {
     try {
-      const poemNames = await this.searchService.search({
+      const poemNames = await this.search({
         aggs: {
           distinct_poem_names: {
             terms: {
@@ -418,7 +431,7 @@ export class PoemsService {
     inputText: string
   ): Promise<Record<string, any>[][]> {
     try {
-      const poems = await this.searchService.search({
+      const poems = await this.search({
         query: {
           //add match for fields poem_name, poet, year and line
           multi_match: {
@@ -440,7 +453,7 @@ export class PoemsService {
       });
       const poemsByInputText = [];
       for (const key of poems.aggs.distinct_poem_names.buckets) {
-        const poem = await this.searchService.search({
+        const poem = await this.search({
           query: {
             match: {
               poem_name: key.key,
